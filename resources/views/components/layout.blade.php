@@ -7,11 +7,12 @@
 
     <title>Laravel Job Board</title>
     @vite('resources/css/app.css')
+    @vite('resources/js/app.js')
 
 </head>
 
-<body>
-    <div class="text-4xl"> This should be a big text!</div>
+<body class="mx-auto mt-10 max-w-2xl bg-gradient-to-r from-cyan-100 to-blue-400 text-slate-700">
+    {{ $slot }}
 </body>
 
 </html>
