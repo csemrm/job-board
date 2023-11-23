@@ -18,12 +18,19 @@ class Job extends Model
         'Marketing'
         ];
 
+    public function employer(){
+        return $this->belongsTo(Employer::class);
+    }
+
     public function scopeFilter(Builder | QueryBuilder $query, array $filters): Builder | QueryBuilder{
 
-        return $query->when($filters['search'] ?? null, function ($query, $search)  {
-            $query->where(function ($query)use ($search)  {
+        return $query->when($filters['search'] ?? null, function ($query, $search) {
+            $query->where(function ($query) use ($search) {
                 $query->where('title', 'LIKE', '%' . $search . '%')
-                    ->orWhere('description', 'LIKE', '%' . $search. '%');
+                    ->orWhere('description', 'LIKE', '%' . $search . '%')
+                    ->orWhereHas('employer', function ($query ) use ($search) {
+                        $query->where('company_name', 'LIKE', '%' . $search . '%');
+                    });
             });
         })->when($filters['min_salary'] ?? null , function ($query, $min_salary) {
             $query->where('salary', '>=', $min_salary);

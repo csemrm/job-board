@@ -16,7 +16,7 @@ class JobController extends Controller
         //
         $filters = request()->only(['search','min_salary','max_salary','experience','category']);
 
-        $jobs = Job::filter($filters);
+        $jobs = Job::with('employer')->filter($filters);
 
 
 
@@ -48,7 +48,10 @@ class JobController extends Controller
     {
         //
 
-        return view("jobs.show",["job"=> $job]);
+        return view(
+            "jobs.show",
+            ["job"=> $job->load("employer.jobs")
+        ]);
     }
 
     /**
