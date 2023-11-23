@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
+
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -12,6 +13,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+
+         \App\Models\User::factory()->create([
+            "name"=> "Mostafizur Rahman",
+            "email"=> "csemrm@gmail.com",
+         ]);
 
        \App\Models\User::factory(300)->create();
 
