@@ -11,9 +11,11 @@ class JobPolicy
     /**
      * Determine whether the user can view any models.
      */
-    public function viewAny(User $user): bool
+    public function viewAny(?User $user): bool
     {
+
         //
+        return true;
     }
 
     /**
@@ -22,6 +24,7 @@ class JobPolicy
     public function view(User $user, Job $job): bool
     {
         //
+        return true;
     }
 
     /**
@@ -30,6 +33,7 @@ class JobPolicy
     public function create(User $user): bool
     {
         //
+        return false;
     }
 
     /**
@@ -38,6 +42,7 @@ class JobPolicy
     public function update(User $user, Job $job): bool
     {
         //
+        return false;
     }
 
     /**
@@ -46,6 +51,7 @@ class JobPolicy
     public function delete(User $user, Job $job): bool
     {
         //
+        return false;
     }
 
     /**
@@ -54,6 +60,7 @@ class JobPolicy
     public function restore(User $user, Job $job): bool
     {
         //
+        return false;
     }
 
     /**
@@ -62,5 +69,10 @@ class JobPolicy
     public function forceDelete(User $user, Job $job): bool
     {
         //
+        return false;
+    }
+    public function apply(User $user, Job $job): bool{
+
+        return !$job->hasUserApplied($user);
     }
 }
