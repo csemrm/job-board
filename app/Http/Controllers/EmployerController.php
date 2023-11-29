@@ -2,42 +2,43 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreEmployerRequest;
-use App\Http\Requests\UpdateEmployerRequest;
+use Illuminate\Http\Request;
 use App\Models\Employer;
 
 class EmployerController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
+    public function __construct() {
 
+        $this->authorizeResource( Employer::class);
+    }
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
         //
+
+        return view("employer.create");
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreEmployerRequest $request)
+    public function store(Request $request)
     {
         //
-    }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Employer $employer)
-    {
-        //
+
+        $validateData = $request->validate([
+            'company_name'=>'required|min:3|unique:employers,company_name',
+        ]);
+
+        auth()->user()->employer()->create([
+                "company_name"=> $validateData['company_name'],
+            ]);
+
+
+        return redirect()->route("jobs.index")->with("success","Your employer account created successfully..");
     }
 
     /**
@@ -51,7 +52,7 @@ class EmployerController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateEmployerRequest $request, Employer $employer)
+    public function update(Request $request, Employer $employer)
     {
         //
     }

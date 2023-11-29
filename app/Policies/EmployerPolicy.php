@@ -14,6 +14,7 @@ class EmployerPolicy
     public function viewAny(User $user): bool
     {
         //
+        return false;
     }
 
     /**
@@ -22,14 +23,16 @@ class EmployerPolicy
     public function view(User $user, Employer $employer): bool
     {
         //
+        return false;
     }
 
     /**
      * Determine whether the user can create models.
      */
-    public function create(User $user): bool
+    public function create(?User $user): bool
     {
         //
+        return null === $user->employer;
     }
 
     /**
@@ -38,6 +41,7 @@ class EmployerPolicy
     public function update(User $user, Employer $employer): bool
     {
         //
+        return $employer->user_id === $user->id;
     }
 
     /**
@@ -46,6 +50,7 @@ class EmployerPolicy
     public function delete(User $user, Employer $employer): bool
     {
         //
+        return false;
     }
 
     /**
@@ -54,6 +59,7 @@ class EmployerPolicy
     public function restore(User $user, Employer $employer): bool
     {
         //
+        return false;
     }
 
     /**
@@ -62,5 +68,6 @@ class EmployerPolicy
     public function forceDelete(User $user, Employer $employer): bool
     {
         //
+        return false;
     }
 }
