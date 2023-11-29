@@ -7,9 +7,10 @@ use App\Models\Employer;
 
 class EmployerController extends Controller
 {
-    public function __construct() {
+    public function __construct()
+    {
 
-        $this->authorizeResource( Employer::class);
+        $this->authorizeResource(Employer::class);
     }
     /**
      * Show the form for creating a new resource.
@@ -30,15 +31,15 @@ class EmployerController extends Controller
 
 
         $validateData = $request->validate([
-            'company_name'=>'required|min:3|unique:employers,company_name',
+            'company_name' => 'required|min:3|unique:employers,company_name',
         ]);
 
         auth()->user()->employer()->create([
-                "company_name"=> $validateData['company_name'],
-            ]);
+            "company_name" => $validateData['company_name'],
+        ]);
 
 
-        return redirect()->route("jobs.index")->with("success","Your employer account created successfully..");
+        return redirect()->route("jobs.index")->with("success", "Your employer account created successfully..");
     }
 
     /**
