@@ -4,6 +4,8 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+use \App\Models\Job;
+
 class StoreJobRequest extends FormRequest
 {
     /**
@@ -11,7 +13,7 @@ class StoreJobRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +24,12 @@ class StoreJobRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            "title" => "required|min:10|string|max:255",
+            'location' => "required|string|max:255",
+            'salary' => "required|numeric|max:1000000|min:5000",
+            'description' => "required|string",
+            "experience" => "required|in:" . implode(",", Job::$experience),
+            "category" => "required|in:" . implode(",", Job::$category)
         ];
     }
 }
